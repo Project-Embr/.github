@@ -11,6 +11,13 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
+
+      - name: Create Contibutors Count
+        id: contibutors
+        run: |
+          chmod +x .github/workflows/scripts/contributors.sh
+          ./.github/workflows/scripts/contributors.sh
+
       - name: Delete Releases
         uses: dev-drprasad/delete-older-releases@v0.2.0
         with:
@@ -18,10 +25,8 @@ jobs:
           delete_tags: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Create Contibutors Count
-        run: |
-          chmod +x .github/workflows/scripts/contributors.sh
-          ./.github/workflows/scripts/contributors.sh
+        if: ${{ steps.contibutors.outputs.update == 'true' }}
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
@@ -32,3 +37,4 @@ jobs:
           fail_on_unmatched_files: true
           files: |
             contributors.txt
+        if: ${{ steps.contibutors.outputs.update == 'true' }}
