@@ -17,6 +17,7 @@ jobs:
         run: |
           chmod +x .github/workflows/scripts/contributors.sh
           ./.github/workflows/scripts/contributors.sh
+        shell: bash
 
       - name: Delete Releases
         uses: dev-drprasad/delete-older-releases@v0.2.0
