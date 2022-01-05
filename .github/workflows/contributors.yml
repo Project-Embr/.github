@@ -2,6 +2,8 @@ name: Shields Badges
 
 on:
   push:
+    paths:
+      - '.github/workflows/contributors.yml'
   schedule:
     - cron:  '0 0 * * *'
 
